@@ -20,15 +20,15 @@ class Post extends Model
         return $this->belongsTo(User::class,'user_id');
     }
 
-    protected static function booted(): void
-    {
-        static::created(function ($post) {
-            Mail::to("banyar@gmail.com")->send(new StoreMail($post));
-        });
-        static::updated(function ($post) {
-            Mail::to("banyar@gmail.com")->send(new StoreMail($post));
-        });
-    }
+    // protected static function booted(): void
+    // {
+    //     static::created(function ($post) {
+    //         Mail::to("banyar@gmail.com")->send(new StoreMail($post));
+    //     });
+    //     static::updated(function ($post) {
+    //         Mail::to("banyar@gmail.com")->send(new StoreMail($post));
+    //     });
+    // }
 
     protected $guarded = [];
     protected $table = 'posts';
