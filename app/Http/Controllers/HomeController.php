@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 use App\Models\Post;
 use App\Models\Category;
+use App\Mail\StoreMail;
+use App\Mail\PostCreated;
 use App\Http\Requests\StorePostRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Gate;
 
 class HomeController extends Controller
@@ -33,9 +36,8 @@ class HomeController extends Controller
      */
     public function store(StorePostRequest $request)
     {
-        $validated = $request->validated();
-        Post::create($validated);
-        return redirect('posts');
+        $post = Post::create($request->validated());
+        return redirect('posts')->with('status', config('aprogrammer.message.created'));
     }
 
     /**
@@ -62,9 +64,8 @@ class HomeController extends Controller
      */
     public function update(StorePostRequest $request, Post $post)
     {
-        $validated = $request->validated();
-        $post->update($validated);
-        return redirect('posts');
+        $post->update($request->validated());
+        return redirect('posts')->with('status',config('aprogrammer.message.update'));
     }
 
     /**
@@ -73,6 +74,6 @@ class HomeController extends Controller
     public function destroy(Post $post)
     {
         $post->delete();
-        return redirect('posts');
+        return redirect('posts')->with('status',config('aprogrammer.message.delete'));
     }
 }

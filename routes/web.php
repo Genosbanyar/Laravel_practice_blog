@@ -3,6 +3,13 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController;
+use App\Container\TestFacade;
+use App\Test;
+
+
+Route::get('/',function(){
+   dd(resolve('test')->execute());
+});
 
 Route::resource('/posts', HomeController::class)->middleware('auth');
 
